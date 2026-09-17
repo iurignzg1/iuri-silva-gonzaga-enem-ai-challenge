@@ -23,6 +23,12 @@ async function buscarQuestoesEnem(ano, diaNum, lingua) {
     for (const q of todas) {
         const pertenceAoDia = diaNum === 1 ? q.index <= 90 : q.index > 90;
         if (pertenceAoDia && !mapa.has(q.index)) {
+            // Força a disciplina correta baseada no index padrão do ENEM para evitar erros da API externa
+            if (q.index >= 1 && q.index <= 45) q.discipline = 'linguagens';
+            else if (q.index >= 46 && q.index <= 90) q.discipline = 'ciencias-humanas';
+            else if (q.index >= 91 && q.index <= 135) q.discipline = 'ciencias-natureza';
+            else if (q.index >= 136 && q.index <= 180) q.discipline = 'matematica';
+            
             mapa.set(q.index, q);
         }
     }
