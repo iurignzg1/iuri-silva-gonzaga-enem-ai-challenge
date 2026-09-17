@@ -1,6 +1,8 @@
 const Simulado = require('../models/Simulado');
 const User = require('../models/User');
 const { calcularNotaSimulado } = require('../utils/triCalculator');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+const { gerarPromptFeedback } = require('../utils/geminiPrompts');
 
 // Função auxiliar para buscar questões na API do ENEM
 async function buscarQuestoesEnem(ano, diaNum, lingua) {
@@ -112,14 +114,38 @@ class SimuladoController {
                 diaNum
             });
 
-            // Salva no banco de dados MongoDB
+            let feedbackIA = '';
+            try {
+                if (process.env.GEMINI_API_KEY) {
+                    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+                    const model = genAI.getGenerativeModel({ model: 'gemini-3.8-flash' });
+                    
+                    const pesos = req.user?.pesos || { matematica: 1, natureza: 1, humanas: 1, linguagens: 1, redacao: 1 };
+                    
+                    const prompt = gerarPromptFeedback(
+                        diaNum, 
+                        acertos, 
+                        totaisPorDisciplina, 
+                        pesos, 
+                        req.user?.cursoAlvo, 
+                        req.user?.faculdadeAlvo
+                    );
+                    
+                    const result = await model.generateContent(prompt);
+                    feedbackIA = result.response.text();
+                }
+            } catch (err) {
+                console.error('Erro ao gerar feedback com IA:', err);
+                feedbackIA = 'Não foi possível gerar o feedback da IA nesse momento.';
+            }
+
             const simulado = await Simulado.create({
                 userId: req.user._id,
                 tipo: req.body.tipo || 'completo',
                 acertos,
                 totalQuestoes: questoes.length,
                 notaPonderada: resultadoTRI.notaPonderada,
-                feedbackIA: '' // Será gerado pela API do Gemini futuramente
+                feedbackIA: feedbackIA
             });
 
             return res.status(201).json({
@@ -129,7 +155,8 @@ class SimuladoController {
                 totalAcertos,
                 acertosPorMateria: acertos,
                 notasPorMateria: resultadoTRI.notasPorMateria,
-                notaPonderada: resultadoTRI.notaPonderada
+                notaPonderada: resultadoTRI.notaPonderada,
+                feedbackIA: feedbackIA
             });
         } catch (error) {
             return res.status(500).json({ erro: 'Erro ao finalizar simulado.', detalhe: error.message });

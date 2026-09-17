@@ -1,15 +1,3 @@
-/**
- * Estimador de Notas TRI (Teoria de Resposta ao Item) para o ENEM.
- * 
- * Baseado nas distribuições históricas reais do INEP:
- * - Nota mínima não é zero (varia entre ~320 e 330 devido ao acaso/chute).
- * - Tetos e progressões calibrados por área:
- *   - Matemática: teto alto (~985 pontos).
- *   - Linguagens: nota historicamente mais contida (~825 pontos).
- *   - Ciências Humanas: teto intermediário (~860 pontos).
- *   - Ciências da Natureza: teto intermediário (~875 pontos).
- */
-
 const PARAMETROS_TRI = {
     matematica: { min: 320, max: 985, expoente: 1.35 },
     linguagens: { min: 330, max: 825, expoente: 1.15 },

@@ -9,6 +9,27 @@ const jwtSecret = process.env.JWT_SECRET;
 const generateToken = (id) => {
     return jwt.sign({ id }, jwtSecret, { expiresIn: '7d' });
 };
+
+// Obter dados do usuário logado
+const getCurrentUser = async (req,res) =>{
+    return res.status(200).json(req.user)}
+
+// Atualizar dados do usuário logado
+const updateProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        const { nome, cursoAlvo, faculdadeAlvo, pesos } = req.body;
+        if (nome) user.nome = nome;
+        if (cursoAlvo) user.cursoAlvo = cursoAlvo;
+        if (faculdadeAlvo) user.faculdadeAlvo = faculdadeAlvo;
+        if (pesos) user.pesos = pesos;
+        await user.save();
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({ msg: 'Erro ao atualizar perfil: ' + error.message });
+    }
+};
+
 // registro de usuário
 const registerUser = async (req, res) => {
     const { nome, email, senha } = req.body;
@@ -68,4 +89,4 @@ const loginUser = async (req,res) => {
 }
 }
 
-module.exports = { registerUser, loginUser }
+module.exports = { registerUser, loginUser, getCurrentUser, updateProfile }

@@ -15,13 +15,23 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//configuração do CORS
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+//configuração do CORS (suporta 3000 e 5173)
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(null, true);
+        }
+    },
+    credentials: true
+}));
 
 //routes
-app.use('/api/simulado', simuladoRoutes);
 app.use(router);
-app.use('/api/users', userRoutes);
+app.use('/api/simulado', simuladoRoutes);
+
 
 //conexão com o banco de dados
 
