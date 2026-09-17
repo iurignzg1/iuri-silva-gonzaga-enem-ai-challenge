@@ -43,8 +43,26 @@ const registerUser = async (req, res) => {
 };
 
 // login de usuário
-const loginUser = (req,res) => {
-    res.send("login")
+const loginUser = async (req,res) => {
+    const {email, senha} = req.body
+
+    const user = await User.findOne({email})
+    if(!user){
+        res.status(404).json({errors: ["Usuário não encontrado"]})
+        return
+    }
+
+    if(!(await bcrypt.compare(senha, user.senha))){
+        res.status(422).json({errors:["Senha inválida"]})
+        return
+    }
+
+    return res.status(200).json({
+            _id: user._id,
+            nome: user.nome,
+            email: user.email,
+            token: generateToken(user._id),
+        });
 
 }
 
