@@ -1,44 +1,54 @@
+const Simulado = require('../models/Simulado');
+const User = require('../models/User');
+const { calcularNotaSimulado } = require('../utils/triCalculator');
+
+// Função auxiliar para buscar questões na API do ENEM
+async function buscarQuestoesEnem(ano, diaNum, lingua) {
+    const offsets = diaNum === 1 ? [1, 51] : [91, 141];
+    const langQuery = diaNum === 1 && lingua ? `&language=${lingua}` : '';
+
+    const requests = offsets.map(offset =>
+        fetch(`https://api.enem.dev/v1/exams/${ano}/questions?offset=${offset}&limit=50${langQuery}`)
+            .then(res => res.json())
+            .then(data => data.questions || [])
+    );
+
+    const resultados = await Promise.all(requests);
+    const todas = resultados.flat();
+
+    // Filtra pelo dia e remove repetições
+    const mapa = new Map();
+    for (const q of todas) {
+        const pertenceAoDia = diaNum === 1 ? q.index <= 90 : q.index > 90;
+        if (pertenceAoDia && !mapa.has(q.index)) {
+            mapa.set(q.index, q);
+        }
+    }
+    return Array.from(mapa.values()).sort((a, b) => a.index - b.index);
+}
+
 class SimuladoController {
-    async gerarSimulado(req, res) {
+    // 1. Gera as questões para o aluno responder (sem o gabarito)
+    gerarSimulado = async (req, res) => {
         try {
-            const { dia } = req.params;
-            const diaNum = parseInt(dia, 10);
-
+            const diaNum = parseInt(req.params.dia, 10);
             if (diaNum !== 1 && diaNum !== 2) {
-                return res.status(400).json({ erro: 'Dia inválido. Utilize 1 ou 2.' });
+                return res.status(400).json({ erro: 'Dia inválido. Use 1 ou 2.' });
             }
 
-            // Gera um numero inteiro aleatorio entre 2009 e 2023
-            const anoSorteado = Math.floor(Math.random() * (2023 - 2009 + 1)) + 2009;
+            const ano = req.query.ano ? parseInt(req.query.ano, 10) : Math.floor(Math.random() * (2023 - 2017 + 1)) + 2017;
+            const lingua = req.query.lingua === 'espanhol' ? 'espanhol' : 'ingles';
 
-            console.log(`[Simulado] Solicitando questões do ENEM ${anoSorteado} - Dia ${diaNum}...`);
+            const questoes = await buscarQuestoesEnem(ano, diaNum, lingua);
 
-            // Busca as questões do ano sorteado
-            const response = await fetch(`https://api.enem.dev/v1/exams/${anoSorteado}/questions`);
-            
-            if (!response.ok) {
-                throw new Error(`A API externa respondeu com status ${response.status}`);
-            }
-
-            const responseData = await response.json();
-
-            // Definição das disciplinas por dia
-            const disciplinasDia1 = ['linguagens', 'ciencias-humanas'];
-            const disciplinasDia2 = ['ciencias-natureza', 'matematica'];
-            const disciplinasAlvo = diaNum === 1 ? disciplinasDia1 : disciplinasDia2;
-
-            // Garante a extração do Array, seja ele retornado diretamente ou dentro de uma propriedade
-            const listaQuestoes = Array.isArray(responseData) ? responseData : (responseData.questions || responseData.data || []);
-
-            // Filtra as questões do dia correspondente
-            const questoesFiltradas = listaQuestoes.filter(q => disciplinasAlvo.includes(q.discipline));
-
-            // Formata o payload removendo respostas corretas
-            const questoesTratadas = questoesFiltradas.map(q => ({
-                id: q.id,
+            // Remove o gabarito antes de enviar ao frontend
+            const questoesSemGabarito = questoes.map(q => ({
+                id: `${ano}-${q.index}`,
                 index: q.index,
                 disciplina: q.discipline,
+                lingua: q.language || null,
                 enunciado: q.context,
+                comando: q.alternativesIntroduction || null,
                 imagens: q.files || [],
                 alternativas: (q.alternatives || []).map(alt => ({
                     letra: alt.letter,
@@ -49,20 +59,92 @@ class SimuladoController {
 
             return res.status(200).json({
                 sucesso: true,
-                ano: anoSorteado,
+                ano,
                 dia: diaNum,
-                total: questoesTratadas.length,
-                questoes: questoesTratadas
+                lingua: diaNum === 1 ? lingua : undefined,
+                total: questoesSemGabarito.length,
+                questoes: questoesSemGabarito
+            });
+        } catch (error) {
+            return res.status(500).json({ erro: 'Erro ao carregar simulado.', detalhe: error.message });
+        }
+    };
+
+    // 2. Recebe as respostas do aluno, calcula acertos e salva no banco
+    finalizarSimulado = async (req, res) => {
+        try {
+            const { ano, dia, lingua, respostas } = req.body;
+            const diaNum = parseInt(dia, 10);
+            const anoNum = parseInt(ano, 10);
+
+            if (!anoNum || (diaNum !== 1 && diaNum !== 2)) {
+                return res.status(400).json({ erro: 'Informe o ano e o dia (1 ou 2).' });
+            }
+
+            const questoes = await buscarQuestoesEnem(anoNum, diaNum, lingua || 'ingles');
+
+            // Contabiliza acertos e totais por disciplina
+            const acertos = { matematica: 0, natureza: 0, humanas: 0, linguagens: 0 };
+            const totaisPorDisciplina = { matematica: 0, natureza: 0, humanas: 0, linguagens: 0 };
+            let totalAcertos = 0;
+
+            questoes.forEach(q => {
+                if (q.discipline === 'linguagens') totaisPorDisciplina.linguagens++;
+                if (q.discipline === 'ciencias-humanas') totaisPorDisciplina.humanas++;
+                if (q.discipline === 'ciencias-natureza') totaisPorDisciplina.natureza++;
+                if (q.discipline === 'matematica') totaisPorDisciplina.matematica++;
+
+                const respAluno = respostas?.[q.index] || respostas?.[`${anoNum}-${q.index}`];
+                if (respAluno && respAluno.toUpperCase() === q.correctAlternative?.toUpperCase()) {
+                    totalAcertos++;
+                    if (q.discipline === 'linguagens') acertos.linguagens++;
+                    if (q.discipline === 'ciencias-humanas') acertos.humanas++;
+                    if (q.discipline === 'ciencias-natureza') acertos.natureza++;
+                    if (q.discipline === 'matematica') acertos.matematica++;
+                }
             });
 
-        } catch (error) {
-            console.error('[Simulado Controller Error]:', error.message);
-            return res.status(500).json({ 
-                erro: 'Erro ao gerar o simulado. Tente novamente.',
-                detalhe: error.message 
+            // Estima a nota TRI real baseada nas curvas históricas do ENEM e nos pesos do aluno
+            const resultadoTRI = calcularNotaSimulado({
+                acertos,
+                totaisPorDisciplina,
+                pesos: req.user?.pesos,
+                diaNum
             });
+
+            // Salva no banco de dados MongoDB
+            const simulado = await Simulado.create({
+                userId: req.user._id,
+                tipo: req.body.tipo || 'completo',
+                acertos,
+                totalQuestoes: questoes.length,
+                notaPonderada: resultadoTRI.notaPonderada,
+                feedbackIA: '' // Será gerado pela API do Gemini futuramente
+            });
+
+            return res.status(201).json({
+                sucesso: true,
+                simuladoId: simulado._id,
+                totalQuestoes: questoes.length,
+                totalAcertos,
+                acertosPorMateria: acertos,
+                notasPorMateria: resultadoTRI.notasPorMateria,
+                notaPonderada: resultadoTRI.notaPonderada
+            });
+        } catch (error) {
+            return res.status(500).json({ erro: 'Erro ao finalizar simulado.', detalhe: error.message });
         }
-    }
+    };
+
+    // 3. Lista o histórico de simulados do usuário logado
+    listarHistorico = async (req, res) => {
+        try {
+            const simulados = await Simulado.find({ userId: req.user._id }).sort({ createdAt: -1 });
+            return res.status(200).json({ sucesso: true, total: simulados.length, simulados });
+        } catch (error) {
+            return res.status(500).json({ erro: 'Erro ao listar histórico.', detalhe: error.message });
+        }
+    };
 }
 
 module.exports = new SimuladoController();
