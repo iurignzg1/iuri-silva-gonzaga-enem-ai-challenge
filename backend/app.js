@@ -7,6 +7,7 @@ const port = process.env.PORT;
 //importação de rotas
 const router = require('./routes/router');
 const simuladoRoutes = require('./routes/SimuladoRoutes');
+const userRoutes = require('./routes/UserRoutes');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 //routes
 app.use('/api/simulado', simuladoRoutes);
 app.use(router);
+app.use('/api/users', userRoutes);
 
 //conexão com o banco de dados
 

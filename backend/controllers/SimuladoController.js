@@ -8,9 +8,8 @@ class SimuladoController {
                 return res.status(400).json({ erro: 'Dia inválido. Utilize 1 ou 2.' });
             }
 
-            // Anos disponíveis salvos em memória para acelerar a resposta
-            const anosDisponiveis = [2018, 2019, 2020, 2021, 2022, 2023];
-            const anoSorteado = anosDisponiveis[Math.floor(Math.random() * anosDisponiveis.length)];
+            // Gera um numero inteiro aleatorio entre 2009 e 2023
+            const anoSorteado = Math.floor(Math.random() * (2023 - 2009 + 1)) + 2009;
 
             console.log(`[Simulado] Solicitando questões do ENEM ${anoSorteado} - Dia ${diaNum}...`);
 
