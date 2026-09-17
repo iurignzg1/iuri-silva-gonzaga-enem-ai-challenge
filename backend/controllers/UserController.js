@@ -45,8 +45,8 @@ const registerUser = async (req, res) => {
 // login de usuário
 const loginUser = async (req,res) => {
     const {email, senha} = req.body
-
-    const user = await User.findOne({email})
+    try {
+    const user = await User.findOne({email}).select('+senha')
     if(!user){
         res.status(404).json({errors: ["Usuário não encontrado"]})
         return
@@ -63,8 +63,9 @@ const loginUser = async (req,res) => {
             email: user.email,
             token: generateToken(user._id),
         });
-
+}   catch (error) {
+        return res.status(500).json({ msg: 'Erro no servidor: ' + error.message });
 }
-
+}
 
 module.exports = { registerUser, loginUser }
