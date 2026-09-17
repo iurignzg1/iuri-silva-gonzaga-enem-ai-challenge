@@ -42,5 +42,15 @@ const loginValidation = () => {
 
     ]
 }
-
-module.exports = {userCreateValidation, loginValidation}
+const userUpdateValidation = () => {
+    return [
+        body("nome").optional().isLength({min: 3}).withMessage("O Nome precisa ter no mínimo 3 caracteres"),
+        body("senha").optional().isLength({min: 6}).withMessage("A senha deve conter no mínimo 6 caracteres"),
+        body("pesos.matematica").optional().isNumeric().withMessage("A matemática deve ser um número"),
+        body("pesos.natureza").optional().isNumeric().withMessage("A natureza deve ser um número"),
+        body("pesos.humanas").optional().isNumeric().withMessage("As humanas deve ser um número"),
+        body("pesos.linguagens").optional().isNumeric().withMessage("As linguagens deve ser um número"),
+        body("pesos.redacao").optional().isNumeric().withMessage("A redação deve ser um número")
+    ]
+}
+module.exports = {userCreateValidation, loginValidation, userUpdateValidation}

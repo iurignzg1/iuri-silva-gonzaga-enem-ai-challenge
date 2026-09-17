@@ -18,11 +18,15 @@ const getCurrentUser = async (req,res) =>{
 const updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
-        const { nome, cursoAlvo, faculdadeAlvo, pesos } = req.body;
+        const { nome, cursoAlvo, faculdadeAlvo, pesos, senha } = req.body;
         if (nome) user.nome = nome;
         if (cursoAlvo) user.cursoAlvo = cursoAlvo;
         if (faculdadeAlvo) user.faculdadeAlvo = faculdadeAlvo;
         if (pesos) user.pesos = pesos;
+        if (senha) {
+            const salt = await bcrypt.genSalt(10);
+            user.senha = await bcrypt.hash(senha, salt);
+        }
         await user.save();
         return res.status(200).json(user);
     } catch (error) {
