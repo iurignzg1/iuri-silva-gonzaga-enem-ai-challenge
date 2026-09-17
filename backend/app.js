@@ -3,8 +3,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
 const port = process.env.PORT;
+//importação de rotas
+const router = require('./routes/router');
+const simuladoRoutes = require('./routes/SimuladoRoutes');
 
 const app = express();
 
@@ -12,12 +14,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//routes
-const router = require('./routes/router');
-app.use(router);
-
 //configuração do CORS
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
+//routes
+app.use('/api/simulado', simuladoRoutes);
+app.use(router);
 
 //conexão com o banco de dados
 
@@ -28,3 +30,4 @@ require('./config/db')
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
+
