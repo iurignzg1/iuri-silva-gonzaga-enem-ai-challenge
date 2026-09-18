@@ -1,0 +1,184 @@
+.container {
+  max-width: 980px;
+}
+
+.headerSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e4e4e7;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #09090b;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #71717a;
+  margin: 0;
+}
+
+.targetCard {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.targetInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.targetLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #7c3aed;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.targetValues {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #09090b;
+  letter-spacing: -0.01em;
+}
+
+.targetUni {
+  color: #71717a;
+  font-weight: 400;
+}
+
+.targetEditLink {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #52525b;
+  text-decoration: none;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  transition: all 0.15s ease;
+}
+
+.targetEditLink:hover {
+  background-color: #f4f4f5;
+  color: #09090b;
+}
+
+.gridActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.actionCard {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.15s ease;
+}
+
+.actionCard:hover {
+  border-color: #a1a1aa;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cardIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background-color: #f4f4f5;
+  color: #18181b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #09090b;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  font-size: 0.88rem;
+  color: #71717a;
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+
+.primaryActionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background-color: #7c3aed;
+  color: #ffffff;
+  padding: 0.6rem 1.15rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.primaryActionBtn:hover {
+  background-color: #6d28d9;
+}
+
+.secondaryActionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background-color: #ffffff;
+  border: 1px solid #e4e4e7;
+  color: #09090b;
+  padding: 0.6rem 1.15rem;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.secondaryActionBtn:hover {
+  background-color: #f4f4f5;
+  border-color: #d4d4d8;
+}
+
+@media (max-width: 680px) {
+  .gridActions {
+    grid-template-columns: 1fr;
+  }
+  .targetCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

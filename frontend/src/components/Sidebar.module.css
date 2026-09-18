@@ -1,0 +1,243 @@
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  border-right: 1px solid #e4e4e7;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1rem;
+  box-sizing: border-box;
+  z-index: 40;
+}
+
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.25rem 0.5rem 1.25rem;
+  border-bottom: 1px solid #f4f4f5;
+  margin-bottom: 1.25rem;
+}
+
+.brandLogo {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #09090b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #09090b;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.orgName {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #71717a;
+  letter-spacing: 0.01em;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+}
+
+.navHeader {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 0.6rem 0.35rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  color: #52525b;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.navIcon {
+  font-size: 1.05rem;
+  color: #71717a;
+  transition: color 0.15s ease;
+}
+
+.navLink:hover {
+  background-color: #f4f4f5;
+  color: #09090b;
+}
+
+.navLink:hover .navIcon {
+  color: #09090b;
+}
+
+.activeLink {
+  background-color: #f5f3ff;
+  color: #6d28d9;
+  font-weight: 600;
+}
+
+.activeLink .navIcon {
+  color: #6d28d9;
+}
+
+.targetPill {
+  background: #fafafa;
+  border: 1px solid #e4e4e7;
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.targetIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #7c3aed;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.targetCourse {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #18181b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.targetUni {
+  font-size: 0.72rem;
+  color: #71717a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.85rem;
+  border-top: 1px solid #f4f4f5;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #09090b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.userName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #09090b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userEmail {
+  font-size: 0.7rem;
+  color: #71717a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoutBtn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #71717a;
+  padding: 0.45rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #fef2f2;
+  border-color: #fee2e2;
+  color: #dc2626;
+}
+
+@media (max-width: 850px) {
+  .sidebar {
+    width: 68px;
+    min-width: 68px;
+    padding: 1rem 0.5rem;
+  }
+  .brandText, .navHeader, .navLink span, .targetPill, .userMeta {
+    display: none;
+  }
+  .brandRow {
+    justify-content: center;
+  }
+  .navLink {
+    justify-content: center;
+    padding: 0.6rem;
+  }
+  .userSection {
+    justify-content: center;
+  }
+  .logoutBtn {
+    display: none;
+  }
+}

@@ -5,6 +5,7 @@ const SimuladoController = require('../controllers/SimuladoController');
 const authGuard = require('../middlewares/authGuard');
 
 router.get('/historico', authGuard, SimuladoController.listarHistorico);
+router.get('/analise-historico', authGuard, SimuladoController.analisarHistorico);
 router.get('/:dia', SimuladoController.gerarSimulado);
 router.post('/finalizar', authGuard, SimuladoController.finalizarSimulado);
 

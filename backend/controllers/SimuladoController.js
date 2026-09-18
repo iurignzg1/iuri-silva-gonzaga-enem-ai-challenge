@@ -2,7 +2,7 @@ const Simulado = require('../models/Simulado');
 const User = require('../models/User');
 const { calcularNotaSimulado } = require('../utils/triCalculator');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const { gerarPromptFeedback } = require('../utils/geminiPrompts');
+const { gerarPromptFeedback, gerarPromptAnaliseHistorico } = require('../utils/geminiPrompts');
 
 // Função auxiliar para buscar questões na API do ENEM
 async function buscarQuestoesEnem(ano, diaNum, lingua) {
@@ -124,8 +124,6 @@ class SimuladoController {
             try {
                 if (process.env.GEMINI_API_KEY) {
                     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-                    const model = genAI.getGenerativeModel({ model: 'gemini-3.8-flash' });
-                    
                     const pesos = req.user?.pesos || { matematica: 1, natureza: 1, humanas: 1, linguagens: 1, redacao: 1 };
                     
                     const prompt = gerarPromptFeedback(
@@ -136,9 +134,20 @@ class SimuladoController {
                         req.user?.cursoAlvo, 
                         req.user?.faculdadeAlvo
                     );
+
+                    // Lista de modelos disponíveis com fallback automático caso um esteja sobrecarregado (503)
+                    const modelosDisponiveis = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-3.5-flash'];
                     
-                    const result = await model.generateContent(prompt);
-                    feedbackIA = result.response.text();
+                    for (const nomeModelo of modelosDisponiveis) {
+                        try {
+                            const model = genAI.getGenerativeModel({ model: nomeModelo });
+                            const result = await model.generateContent(prompt);
+                            feedbackIA = result.response.text();
+                            if (feedbackIA) break;
+                        } catch (modelErr) {
+                            console.warn(`Modelo ${nomeModelo} indisponível, tentando próximo...`, modelErr.message);
+                        }
+                    }
                 }
             } catch (err) {
                 console.error('Erro ao gerar feedback com IA:', err);
@@ -169,13 +178,84 @@ class SimuladoController {
         }
     };
 
-    // 3. Lista o histórico de simulados do usuário logado
-    listarHistorico = async (req, res) => {
+    // 4. Análise holística de todo o histórico do aluno via IA
+    analisarHistorico = async (req, res) => {
         try {
-            const simulados = await Simulado.find({ userId: req.user._id }).sort({ createdAt: -1 });
-            return res.status(200).json({ sucesso: true, total: simulados.length, simulados });
+            const simulados = await Simulado.find({ userId: req.user._id }).sort({ createdAt: 1 });
+
+            if (!simulados || simulados.length === 0) {
+                return res.status(200).json({
+                    sucesso: true,
+                    temHistorico: false,
+                    mensagem: "Complete pelo menos um simulado para gerar uma análise estratégica da IA."
+                });
+            }
+
+            // Calcula estatísticas consolidadas
+            const totalSimulados = simulados.length;
+            const notas = simulados.map(s => s.notaPonderada || 0);
+            const mediaTRI = (notas.reduce((a, b) => a + b, 0) / totalSimulados).toFixed(1);
+            const melhorTRI = Math.max(...notas).toFixed(1);
+
+            // Médias de acertos por matéria
+            const contagemMaterias = { matematica: 0, natureza: 0, humanas: 0, linguagens: 0 };
+            const somasAcertos = { matematica: 0, natureza: 0, humanas: 0, linguagens: 0 };
+
+            simulados.forEach(s => {
+                if (s.acertos) {
+                    if (s.acertos.matematica > 0) { somasAcertos.matematica += s.acertos.matematica; contagemMaterias.matematica++; }
+                    if (s.acertos.natureza > 0) { somasAcertos.natureza += s.acertos.natureza; contagemMaterias.natureza++; }
+                    if (s.acertos.humanas > 0) { somasAcertos.humanas += s.acertos.humanas; contagemMaterias.humanas++; }
+                    if (s.acertos.linguagens > 0) { somasAcertos.linguagens += s.acertos.linguagens; contagemMaterias.linguagens++; }
+                }
+            });
+
+            const mediasAcertos = {
+                matematica: contagemMaterias.matematica ? (somasAcertos.matematica / contagemMaterias.matematica).toFixed(1) : '0',
+                natureza: contagemMaterias.natureza ? (somasAcertos.natureza / contagemMaterias.natureza).toFixed(1) : '0',
+                humanas: contagemMaterias.humanas ? (somasAcertos.humanas / contagemMaterias.humanas).toFixed(1) : '0',
+                linguagens: contagemMaterias.linguagens ? (somasAcertos.linguagens / contagemMaterias.linguagens).toFixed(1) : '0',
+            };
+
+            const resumoHistorico = {
+                totalSimulados,
+                mediaTRI,
+                melhorTRI,
+                mediasAcertos
+            };
+
+            let analiseIA = '';
+            if (process.env.GEMINI_API_KEY) {
+                const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+                const pesos = req.user?.pesos || { matematica: 1, natureza: 1, humanas: 1, linguagens: 1, redacao: 1 };
+                const prompt = gerarPromptAnaliseHistorico(
+                    resumoHistorico,
+                    pesos,
+                    req.user?.cursoAlvo,
+                    req.user?.faculdadeAlvo
+                );
+
+                const modelosDisponiveis = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-3.5-flash'];
+                for (const nomeModelo of modelosDisponiveis) {
+                    try {
+                        const model = genAI.getGenerativeModel({ model: nomeModelo });
+                        const result = await model.generateContent(prompt);
+                        analiseIA = result.response.text();
+                        if (analiseIA) break;
+                    } catch (modelErr) {
+                        console.warn(`Modelo ${nomeModelo} indisponível na análise de histórico, tentando próximo...`, modelErr.message);
+                    }
+                }
+            }
+
+            return res.status(200).json({
+                sucesso: true,
+                temHistorico: true,
+                resumo: resumoHistorico,
+                analiseIA: analiseIA || "Não foi possível gerar a análise no momento."
+            });
         } catch (error) {
-            return res.status(500).json({ erro: 'Erro ao listar histórico.', detalhe: error.message });
+            return res.status(500).json({ erro: 'Erro ao analisar histórico com IA.', detalhe: error.message });
         }
     };
 }

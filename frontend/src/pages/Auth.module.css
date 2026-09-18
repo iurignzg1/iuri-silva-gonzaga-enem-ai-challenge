@@ -1,0 +1,131 @@
+.authWrapper {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.authCard {
+  width: 100%;
+  max-width: 380px;
+  background-color: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  padding: 2.25rem 2rem;
+}
+
+.authHead {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.authLogo {
+  width: 32px;
+  height: 32px;
+  background-color: #09090b;
+  color: #ffffff;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.authTitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #09090b;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+
+.authSubtitle {
+  font-size: 0.85rem;
+  color: #71717a;
+  margin: 0;
+}
+
+.errorBanner {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #b91c1c;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  margin-bottom: 1.25rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #27272a;
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e4e4e7;
+  font-size: 0.88rem;
+  color: #09090b;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+.input:focus {
+  border-color: #7c3aed;
+}
+
+.submitBtn {
+  margin-top: 0.5rem;
+  padding: 0.65rem;
+  border-radius: 6px;
+  border: none;
+  background-color: #09090b;
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: #27272a;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footerText {
+  text-align: center;
+  font-size: 0.82rem;
+  color: #71717a;
+  margin: 1.5rem 0 0;
+}
+
+.footerLink {
+  color: #09090b;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
