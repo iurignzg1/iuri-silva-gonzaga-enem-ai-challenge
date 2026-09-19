@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { API_URL, getAuthHeaders } from "../services/api";
+import catalogoCursos from "../config/cursos.json";
+import catalogoInstituicoes from "../config/instituicoes.json";
 import styles from "./Profile.module.css";
 
 const Profile = () => {
@@ -122,23 +124,47 @@ const Profile = () => {
           <div className={styles.fieldGrid}>
             <div className={styles.field}>
               <label className={styles.label}>Curso Alvo</label>
-              <input
-                type="text"
+              <select
                 value={cursoAlvo}
                 onChange={(e) => setCursoAlvo(e.target.value)}
-                placeholder="Ex: Medicina, Direito, Computação"
                 className={styles.input}
-              />
+              >
+                {catalogoCursos.map((grupo) => (
+                  <optgroup key={grupo.area} label={grupo.area}>
+                    {grupo.cursos.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+                {cursoAlvo &&
+                  !catalogoCursos.some((g) => g.cursos.includes(cursoAlvo)) && (
+                    <option value={cursoAlvo}>{cursoAlvo} (Personalizado)</option>
+                  )}
+              </select>
             </div>
             <div className={styles.field}>
               <label className={styles.label}>Instituição Alvo</label>
-              <input
-                type="text"
+              <select
                 value={faculdadeAlvo}
                 onChange={(e) => setFaculdadeAlvo(e.target.value)}
-                placeholder="Ex: USP, UFRJ, UFMG, UNICAMP"
                 className={styles.input}
-              />
+              >
+                {catalogoInstituicoes.map((regiao) => (
+                  <optgroup key={regiao.regiao} label={regiao.regiao}>
+                    {regiao.instituicoes.map((inst) => (
+                      <option key={inst} value={inst}>
+                        {inst}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+                {faculdadeAlvo &&
+                  !catalogoInstituicoes.some((r) => r.instituicoes.includes(faculdadeAlvo)) && (
+                    <option value={faculdadeAlvo}>{faculdadeAlvo} (Personalizado)</option>
+                  )}
+              </select>
             </div>
           </div>
         </div>

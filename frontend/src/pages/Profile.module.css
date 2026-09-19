@@ -78,10 +78,30 @@
   color: #09090b;
   outline: none;
   background-color: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+select.input {
+  cursor: pointer;
+  appearance: auto;
+}
+
+optgroup {
+  font-weight: 700;
+  color: #5b21b6;
+  background-color: #f5f3ff;
+}
+
+optgroup option {
+  font-weight: 400;
+  color: #09090b;
+  background-color: #ffffff;
+  padding: 0.4rem;
 }
 
 .input:focus {
   border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 
 .inputDisabled {
