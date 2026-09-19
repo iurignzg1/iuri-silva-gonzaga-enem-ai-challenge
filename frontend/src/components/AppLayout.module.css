@@ -1,13 +1,19 @@
 .layout {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background-color: #fbfbfd;
+}
+
+.bodyContainer {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 65px);
 }
 
 .mainContent {
   flex: 1;
   overflow-y: auto;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -22,6 +28,9 @@
 }
 
 @media (max-width: 768px) {
+  .bodyContainer {
+    flex-direction: column;
+  }
   .contentInner {
     padding: 1.5rem 1rem;
   }
