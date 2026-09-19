@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "server": "nodemon ./app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "seed": "node scripts/seedQuestoes.js"
   },
   "keywords": [],
   "author": "",
