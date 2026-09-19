@@ -84,14 +84,36 @@ const Simulados = () => {
         </p>
 
         <div className={styles.scoreBanner}>
-          <div className={styles.scoreMeta}>Nota TRI Ponderada</div>
+          <div className={styles.scoreMeta}>Nota TRI Ponderada Geral</div>
           <div className={styles.scoreValue}>
             {(resultado.notaPonderada || 0).toFixed(1)}
           </div>
           <div className={styles.scoreTotal}>
-            Total de acertos: <strong>{resultado.totalAcertos}</strong> de {resultado.totalQuestoes} questões
+            Total de acertos no exame: <strong>{resultado.totalAcertos}</strong> de {resultado.totalQuestoes} questões
           </div>
         </div>
+
+        {resultado.notasPorMateria && (
+          <div className={styles.areaScoresGrid}>
+            {Object.entries(resultado.notasPorMateria).map(([area, nota]) => {
+              const acertos = resultado.acertosPorMateria?.[area] || 0;
+              const nomesFormatados = {
+                matematica: "Matemática",
+                natureza: "Ciências da Natureza",
+                humanas: "Ciências Humanas",
+                linguagens: "Linguagens e Códigos"
+              };
+
+              return (
+                <div key={area} className={styles.areaScoreItem}>
+                  <span className={styles.areaScoreLabel}>{nomesFormatados[area] || area}</span>
+                  <div className={styles.areaScoreValue}>{nota ? nota.toFixed(1) : "—"}</div>
+                  <span className={styles.areaScoreAcertos}>{acertos} de 45 acertos</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         {resultado.feedbackIA && (
           <div className={styles.feedbackBox}>
