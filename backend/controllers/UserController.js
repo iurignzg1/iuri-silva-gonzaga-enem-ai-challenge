@@ -56,6 +56,9 @@ const registerUser = async (req, res) => {
             _id: newUser._id,
             nome: newUser.nome,
             email: newUser.email,
+            cursoAlvo: newUser.cursoAlvo,
+            faculdadeAlvo: newUser.faculdadeAlvo,
+            pesos: newUser.pesos,
             token: generateToken(newUser._id),
         });
     } catch (error) {
@@ -67,26 +70,29 @@ const registerUser = async (req, res) => {
 const loginUser = async (req,res) => {
     const {email, senha} = req.body
     try {
-    const user = await User.findOne({email}).select('+senha')
-    if(!user){
-        res.status(404).json({errors: ["Usuário não encontrado"]})
-        return
-    }
+        const user = await User.findOne({email}).select('+senha')
+        if(!user){
+            res.status(404).json({errors: ["Usuário não encontrado"]})
+            return
+        }
 
-    if(!(await bcrypt.compare(senha, user.senha))){
-        res.status(422).json({errors:["Senha inválida"]})
-        return
-    }
+        if(!(await bcrypt.compare(senha, user.senha))){
+            res.status(422).json({errors:["Senha inválida"]})
+            return
+        }
 
-    return res.status(200).json({
+        return res.status(200).json({
             _id: user._id,
             nome: user.nome,
             email: user.email,
+            cursoAlvo: user.cursoAlvo,
+            faculdadeAlvo: user.faculdadeAlvo,
+            pesos: user.pesos,
             token: generateToken(user._id),
         });
-}   catch (error) {
+    } catch (error) {
         return res.status(500).json({ msg: 'Erro no servidor: ' + error.message });
-}
-}
+    }
+};
 
 module.exports = { registerUser, loginUser, getCurrentUser, updateProfile }

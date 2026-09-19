@@ -7,18 +7,45 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem("enem_user");
-      const storedToken = localStorage.getItem("enem_token");
+    const initAuth = async () => {
+      try {
+        const storedUser = localStorage.getItem("enem_user");
+        const storedToken = localStorage.getItem("enem_token");
 
-      if (storedUser && storedToken) {
-        setUser(JSON.parse(storedUser));
+        if (storedToken) {
+          if (storedUser) {
+            setUser(JSON.parse(storedUser));
+          }
+          // Sincroniza dados atualizados direto do banco (cursoAlvo, faculdadeAlvo, pesos)
+          try {
+            const res = await fetch("http://localhost:5000/api/users/profile", {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${storedToken}`
+              }
+            });
+            if (res.ok) {
+              const freshData = await res.json();
+              const mergedUser = {
+                ...(storedUser ? JSON.parse(storedUser) : {}),
+                ...freshData,
+                token: storedToken
+              };
+              setUser(mergedUser);
+              localStorage.setItem("enem_user", JSON.stringify(mergedUser));
+            }
+          } catch (fetchErr) {
+            console.warn("Não foi possível sincronizar perfil remoto:", fetchErr.message);
+          }
+        }
+      } catch (err) {
+        console.error("Erro ao carregar dados de autenticação:", err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.error("Erro ao carregar dados de autenticação:", err);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    initAuth();
   }, []);
 
   const login = (userData) => {

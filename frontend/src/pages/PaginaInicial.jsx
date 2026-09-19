@@ -10,10 +10,6 @@ const PaginaInicial = () => {
     <div className={styles.page}>
       {/* Hero */}
       <section className={styles.heroSection}>
-        <div className={styles.tag}>
-          <span>Exames Oficiais ENEM &bull; Calibração TRI</span>
-        </div>
-
         <h1 className={styles.headline}>
           Simulações de alta fidelidade para candidatos ao ENEM.
         </h1>
