@@ -25,35 +25,40 @@ Escreva um parecer curto (4 a 6 frases), objetivo e encorajador.
 Analise a relação entre os acertos e o peso no curso dos sonhos. Aponte estrategicamente onde ele deve focar a revisão das matérias deste dia para crescer de forma rápida.`;
 };
 
-// Prompt para Análise Geral do Histórico de Simulados
+// Prompt para Análise Geral do Histórico de Simulados com Notas TRI separadas por área
 const gerarPromptAnaliseHistorico = (resumoHistorico, pesos, cursoAlvo, faculdadeAlvo) => {
-    return `Atue como um estrategista de aprovação e mentor pedagógico do ENEM.
+    return `Atue como um estrategista de aprovação e mentor de alta performance do ENEM.
 O estudante solicitou uma análise holística do seu histórico de simulados na plataforma HyperTask.
 Curso Alvo: ${cursoAlvo || 'Não definido'} na instituição ${faculdadeAlvo || 'Não definida'}.
-Pesos SISU do aluno:
+
+Pesos SISU do aluno para o curso:
 - Matemática: Peso ${pesos?.matematica || 1}
 - Ciências da Natureza: Peso ${pesos?.natureza || 1}
 - Ciências Humanas: Peso ${pesos?.humanas || 1}
 - Linguagens: Peso ${pesos?.linguagens || 1}
 - Redação: Peso ${pesos?.redacao || 1}
 
-Dados consolidados do histórico:
-- Total de simulados concluídos: ${resumoHistorico.totalSimulados}
-- Média das notas TRI ponderadas: ${resumoHistorico.mediaTRI}
-- Melhor nota TRI obtida: ${resumoHistorico.melhorTRI}
-- Média de acertos por matéria:
-  * Matemática: ${resumoHistorico.mediasAcertos.matematica}
-  * Ciências da Natureza: ${resumoHistorico.mediasAcertos.natureza}
-  * Ciências Humanas: ${resumoHistorico.mediasAcertos.humanas}
-  * Linguagens: ${resumoHistorico.mediasAcertos.linguagens}
+MELHORES NOTAS TRI POR ÁREA (RECORDES DE PROFICIÊNCIA DO ALUNO):
+- Matemática: ${resumoHistorico.melhoresNotasPorArea.matematica} (Peso SISU: ${pesos?.matematica || 1})
+- Ciências da Natureza: ${resumoHistorico.melhoresNotasPorArea.natureza} (Peso SISU: ${pesos?.natureza || 1})
+- Ciências Humanas: ${resumoHistorico.melhoresNotasPorArea.humanas} (Peso SISU: ${pesos?.humanas || 1})
+- Linguagens: ${resumoHistorico.melhoresNotasPorArea.linguagens} (Peso SISU: ${pesos?.linguagens || 1})
 
-Instruções:
-Elabore uma análise estratégica, estruturada em 3 tópicos curtos:
-1. **Diagnóstico da Trajetória:** Avalie o patamar geral e a consistência das notas.
-2. **Prioridade de Alavancagem (Custo-Benefício):** Considerando os pesos do curso alvo (${cursoAlvo || 'Geral'}), identifique onde o ganho de acertos gerará o maior retorno na nota final.
-3. **Direcionamento Prático:** 2 a 3 orientações concretas para os próximos estudos.
+HISTÓRICO SIMULADO A SIMULADO (EVOLUÇÃO DAS NOTAS POR ÁREA):
+${resumoHistorico.historicoLinhas}
 
-Seja direto, empático e focado em estratégia real de prova.`;
+RESUMO GERAL:
+- Total de simulados realizados: ${resumoHistorico.totalSimulados}
+- Melhor nota TRI ponderada alcançada: ${resumoHistorico.melhorTRI}
+- Média TRI ponderada global: ${resumoHistorico.mediaTRI}
+
+Instruções para o parecer:
+Elabore uma análise estratégica personalizada, estruturada em 3 tópicos claros:
+1. **Diagnóstico de Proficiência e Teto Demonstrado:** Avalie as MAIORES NOTAS (recordes) alcançadas pelo aluno em cada disciplina como o patamar real que ele já é capaz de atingir, destacando onde ele já tem domínio e a evolução perceptível entre os primeiros exames e os mais recentes.
+2. **Estratégia de Alavancagem (Pesos SISU vs. Potencial de Ganho):** Considerando a faculdade (${faculdadeAlvo || 'SISU'}) e o curso (${cursoAlvo || 'almejado'}), determine com precisão onde investir horas de estudo para subir a nota final ponderada com o menor custo de esforço (custo-benefício).
+3. **Plano de Ação Tático:** 2 a 3 diretrizes pragmáticas para orientar os estudos da próxima semana.
+
+Mantenha o tom profissional, direto e altamente motivador.`;
 };
 
 module.exports = { gerarPromptFeedback, gerarPromptAnaliseHistorico };

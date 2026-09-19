@@ -12,7 +12,18 @@ const simuladoSchema = new mongoose.Schema(
             enum: ['express', 'completo'],
             default: 'express',
         },
+        dia: {
+            type: Number,
+            enum: [1, 2],
+            default: 1,
+        },
         acertos: {
+            matematica: { type: Number, default: 0 },
+            natureza: { type: Number, default: 0 },
+            humanas: { type: Number, default: 0 },
+            linguagens: { type: Number, default: 0 },
+        },
+        notasPorMateria: {
             matematica: { type: Number, default: 0 },
             natureza: { type: Number, default: 0 },
             humanas: { type: Number, default: 0 },
