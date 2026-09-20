@@ -4,9 +4,9 @@ const { gerarPromptFeedback, gerarPromptAnaliseHistorico } = require('../utils/g
 // Modelos ordenados por velocidade e tolerância com fallback automático caso ocorra 503
 const MODELOS_DISPONIVEIS = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite', 'gemini-3.5-flash'];
 
-/**
- * Executa o prompt no Gemini com fallback automático entre os modelos disponíveis.
- */
+
+//Executa o prompt no Gemini com fallback automático entre os modelos disponíveis.
+
 async function executarPrompt(prompt) {
     if (!process.env.GEMINI_API_KEY) {
         return '';
@@ -20,7 +20,6 @@ async function executarPrompt(prompt) {
             const result = await model.generateContent(prompt);
             const texto = result.response.text();
             if (texto) {
-                // Remove qualquer asterisco (** ou *), hashtags (#) ou sublinhados residuais
                 return texto
                     .replace(/\*\*/g, '')
                     .replace(/^#+\s+/gm, '')
@@ -34,9 +33,9 @@ async function executarPrompt(prompt) {
     return '';
 }
 
-/**
- * Gera feedback pedagógico para a conclusão de um simulado individual.
- */
+
+ // Gera feedback pedagógico para a conclusão de um simulado individual.
+ 
 async function gerarFeedbackSimulado({ diaNum, acertos, totaisPorDisciplina, pesos, cursoAlvo, faculdadeAlvo }) {
     try {
         const prompt = gerarPromptFeedback(
@@ -56,9 +55,9 @@ async function gerarFeedbackSimulado({ diaNum, acertos, totaisPorDisciplina, pes
     }
 }
 
-/**
- * Gera análise estratégica abrangente sobre o histórico completo de provas do estudante.
- */
+
+//Gera análise estratégica abrangente sobre o histórico completo de provas do estudante.
+
 async function gerarAnaliseHistorico({ resumoHistorico, pesos, cursoAlvo, faculdadeAlvo }) {
     try {
         const prompt = gerarPromptAnaliseHistorico(

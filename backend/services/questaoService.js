@@ -1,9 +1,9 @@
 const Questao = require('../models/Questao');
 
-/**
- * Busca questões no MongoDB (rápido e sem limites de taxa).
- * Possui fallback transparente para a API externa caso o ano ainda não tenha sido semeado.
- */
+
+//Busca questões no MongoDB (rápido e sem limites de taxa).
+//Possui fallback transparente para a API externa caso o ano ainda não tenha sido semeado.
+ 
 async function buscarQuestoes(ano, diaNum, lingua) {
     const query = {
         ano,
@@ -28,7 +28,7 @@ async function buscarQuestoes(ano, diaNum, lingua) {
         }));
     }
 
-    // Fallback gracioso: busca na API pública caso o banco não contenha o ano
+    // Fallback: busca na API pública caso o banco não contenha o ano
     const offsets = diaNum === 1 ? [1, 51] : [91, 141];
     const langQuery = diaNum === 1 && lingua ? `&language=${lingua}` : '';
 
@@ -56,9 +56,9 @@ async function buscarQuestoes(ano, diaNum, lingua) {
     return Array.from(mapa.values()).sort((a, b) => a.index - b.index);
 }
 
-/**
- * Remove o gabarito das questões antes de entregar ao aluno no frontend.
- */
+
+ //Remove o gabarito das questões antes de entregar ao aluno no frontend.
+
 function sanitizarParaAluno(questoes, ano) {
     return questoes.map(q => ({
         id: `${ano}-${q.index}`,

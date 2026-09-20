@@ -1,8 +1,8 @@
 const { calcularNotaMateria } = require('./triCalculator');
 
-/**
- * Normaliza os simulados para garantir que todos tenham o objeto notasPorMateria preenchido.
- */
+
+//Normaliza os simulados para garantir que todos tenham o objeto notasPorMateria preenchido.
+
 function normalizarHistorico(simulados) {
     return simulados.map(s => {
         const item = s.toObject ? s.toObject() : { ...s };
@@ -19,9 +19,8 @@ function normalizarHistorico(simulados) {
     });
 }
 
-/**
- * Processa estatísticas, recordes de proficiência TRI e agregações do histórico para a IA.
- */
+//Processa estatísticas, recordes de proficiência TRI e agregações do histórico para a IA.
+
 function processarEstatisticasHistorico(simulados, pesos) {
     const totalSimulados = simulados.length;
     const notas = simulados.map(s => s.notaPonderada || 0);
