@@ -343,7 +343,7 @@ const Dashboard = () => {
                     {sim.feedbackIA && (
                       <button 
                         onClick={() => toggleFeedback(id)}
-                        style={{ background: "transparent", border: "none", color: "#7c3aed", fontSize: "0.78rem", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.25rem", padding: "0.2rem 0.5rem" }}
+                        style={{ background: "transparent", border: "none", color: "var(--accent)", fontSize: "0.78rem", fontWeight: 600, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.25rem", padding: "0.2rem 0.5rem" }}
                       >
                         <FiFileText size={12} />
                         {isFeedbackOpen ? "Ocultar análise" : "Ver parecer pedagógico"}

@@ -8,26 +8,26 @@
   align-items: flex-start;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e4e4e7;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .title {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0 0 0.25rem;
   letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 0.9rem;
-  color: #71717a;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .targetCard {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -44,7 +44,7 @@
 .targetLabel {
   font-size: 0.72rem;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.35rem;
@@ -53,29 +53,29 @@
 .targetValues {
   font-size: 1.15rem;
   font-weight: 600;
-  color: #09090b;
+  color: var(--text-primary);
   letter-spacing: -0.01em;
 }
 
 .targetUni {
-  color: #71717a;
+  color: var(--text-secondary);
   font-weight: 400;
 }
 
 .targetEditLink {
   font-size: 0.82rem;
   font-weight: 500;
-  color: #52525b;
+  color: var(--text-secondary);
   text-decoration: none;
   padding: 0.45rem 0.85rem;
   border-radius: 6px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--border-subtle);
   transition: all 0.15s ease;
 }
 
 .targetEditLink:hover {
-  background-color: #f4f4f5;
-  color: #09090b;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
 }
 
 .gridActions {
@@ -85,8 +85,8 @@
 }
 
 .actionCard {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 1.75rem;
   display: flex;
@@ -96,7 +96,7 @@
 }
 
 .actionCard:hover {
-  border-color: #a1a1aa;
+  border-color: var(--border-hover);
 }
 
 .cardHead {
@@ -110,8 +110,8 @@
   width: 32px;
   height: 32px;
   border-radius: 6px;
-  background-color: #f4f4f5;
-  color: #18181b;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,14 +120,14 @@
 .cardTitle {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .cardDesc {
   font-size: 0.88rem;
-  color: #71717a;
+  color: var(--text-secondary);
   line-height: 1.55;
   margin: 0 0 1.5rem;
 }
@@ -137,8 +137,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  background-color: #7c3aed;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: var(--accent-text);
   padding: 0.6rem 1.15rem;
   border-radius: 6px;
   font-size: 0.88rem;
@@ -148,7 +148,7 @@
 }
 
 .primaryActionBtn:hover {
-  background-color: #6d28d9;
+  background-color: var(--accent-hover);
 }
 
 .secondaryActionBtn {
@@ -156,9 +156,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
-  color: #09090b;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
   padding: 0.6rem 1.15rem;
   border-radius: 6px;
   font-size: 0.88rem;
@@ -168,8 +168,8 @@
 }
 
 .secondaryActionBtn:hover {
-  background-color: #f4f4f5;
-  border-color: #d4d4d8;
+  background-color: var(--bg-elevated);
+  border-color: var(--border-hover);
 }
 
 @media (max-width: 680px) {

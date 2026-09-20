@@ -5,20 +5,20 @@
 .headerSection {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e4e4e7;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .title {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0 0 0.25rem;
   letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 0.9rem;
-  color: #71717a;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .metricCard {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 10px;
   padding: 1.25rem;
 }
@@ -39,7 +39,7 @@
 .metricLabel {
   font-size: 0.72rem;
   font-weight: 600;
-  color: #71717a;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin-bottom: 0.35rem;
@@ -48,13 +48,13 @@
 .metricValue {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #09090b;
+  color: var(--text-primary);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
 
 .metricAccent {
-  color: #7c3aed;
+  color: var(--accent);
 }
 
 .areasSection {
@@ -64,7 +64,7 @@
 .sectionTitleSmall {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #71717a;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.75rem;
@@ -77,8 +77,8 @@
 }
 
 .areaCard {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 10px;
   padding: 1rem 1.15rem;
   display: flex;
@@ -89,7 +89,7 @@
 .areaName {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #52525b;
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
@@ -97,22 +97,22 @@
 .areaScore {
   font-size: 1.45rem;
   font-weight: 700;
-  color: #09090b;
+  color: var(--text-primary);
   font-variant-numeric: tabular-nums;
 }
 
 .areaScoreActive {
-  color: #7c3aed;
+  color: var(--accent);
 }
 
 .areaCount {
   font-size: 0.72rem;
-  color: #a1a1aa;
+  color: var(--text-muted);
 }
 
 .aiSection {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
@@ -126,7 +126,7 @@
   gap: 1rem;
   margin-bottom: 1rem;
   padding-bottom: 0.85rem;
-  border-bottom: 1px solid #f4f4f5;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .aiTitleRow {
@@ -138,7 +138,7 @@
 .aiBadge {
   font-size: 0.68rem;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -146,7 +146,7 @@
 .aiTitle {
   font-size: 1.05rem;
   font-weight: 600;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -154,19 +154,19 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: #09090b;
-  color: #ffffff;
+  background-color: var(--text-primary);
+  color: var(--bg-app);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-size: 0.82rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .aiGenerateBtn:hover:not(:disabled) {
-  background-color: #27272a;
+  opacity: 0.85;
 }
 
 .aiGenerateBtn:disabled {
@@ -176,28 +176,28 @@
 
 .aiBody {
   font-size: 0.88rem;
-  color: #3f3f46;
+  color: var(--text-secondary);
   line-height: 1.65;
   white-space: pre-wrap;
 }
 
 .aiPlaceholder {
   font-size: 0.85rem;
-  color: #71717a;
+  color: var(--text-muted);
   line-height: 1.5;
   margin: 0;
 }
 
 .tableSection {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   overflow: hidden;
 }
 
 .tableHeader {
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #e4e4e7;
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -206,7 +206,7 @@
 .tableTitle {
   font-size: 1rem;
   font-weight: 600;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -217,7 +217,7 @@
 
 .rowItem {
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #f4f4f5;
+  border-bottom: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
@@ -229,7 +229,7 @@
 }
 
 .rowItem:hover {
-  background-color: #fafafa;
+  background-color: var(--bg-elevated);
 }
 
 .rowHeader {
@@ -251,15 +251,15 @@
   font-weight: 600;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  background-color: #f4f4f5;
-  color: #52525b;
+  background-color: var(--bg-elevated);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.03em;
 }
 
 .rowDate {
   font-size: 0.8rem;
-  color: #71717a;
+  color: var(--text-secondary);
 }
 
 .scoreBlock {
@@ -270,13 +270,13 @@
 
 .scoreLabel {
   font-size: 0.75rem;
-  color: #71717a;
+  color: var(--text-secondary);
 }
 
 .scoreNum {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #7c3aed;
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 
@@ -288,21 +288,21 @@
 
 .pill {
   font-size: 0.75rem;
-  color: #52525b;
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  color: var(--text-secondary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   padding: 0.25rem 0.6rem;
   border-radius: 6px;
 }
 
 .pill strong {
-  color: #09090b;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .feedbackDrawer {
-  background-color: #fafafa;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 1rem 1.25rem;
   margin-top: 0.25rem;
@@ -311,7 +311,7 @@
 .feedbackTitle {
   font-size: 0.78rem;
   font-weight: 600;
-  color: #52525b;
+  color: var(--text-secondary);
   margin-bottom: 0.4rem;
   display: flex;
   align-items: center;
@@ -320,7 +320,7 @@
 
 .feedbackText {
   font-size: 0.85rem;
-  color: #3f3f46;
+  color: var(--text-secondary);
   line-height: 1.6;
   white-space: pre-wrap;
   margin: 0;
@@ -329,13 +329,13 @@
 .emptyState {
   padding: 4rem 2rem;
   text-align: center;
-  color: #71717a;
+  color: var(--text-secondary);
 }
 
 .emptyTitle {
   font-size: 1rem;
   font-weight: 600;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0.75rem 0 0.25rem;
 }
 
@@ -348,8 +348,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background-color: #7c3aed;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: var(--accent-text);
   padding: 0.55rem 1.1rem;
   border-radius: 6px;
   font-size: 0.85rem;
@@ -359,7 +359,7 @@
 }
 
 .newSimBtn:hover {
-  background-color: #6d28d9;
+  background-color: var(--accent-hover);
 }
 
 @media (max-width: 640px) {

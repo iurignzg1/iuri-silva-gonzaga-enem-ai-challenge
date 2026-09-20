@@ -9,8 +9,8 @@
 .authCard {
   width: 100%;
   max-width: 380px;
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 2.25rem 2rem;
 }
@@ -23,8 +23,8 @@
 .authLogo {
   width: 32px;
   height: 32px;
-  background-color: #09090b;
-  color: #ffffff;
+  background-color: var(--text-primary);
+  color: var(--bg-app);
   border-radius: 6px;
   display: inline-flex;
   align-items: center;
@@ -35,21 +35,21 @@
 .authTitle {
   font-size: 1.35rem;
   font-weight: 700;
-  color: #09090b;
+  color: var(--text-primary);
   letter-spacing: -0.02em;
   margin: 0 0 0.35rem;
 }
 
 .authSubtitle {
   font-size: 0.85rem;
-  color: #71717a;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .errorBanner {
-  background-color: #fef2f2;
-  border: 1px solid #fee2e2;
-  color: #b91c1c;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: #ef4444;
   padding: 0.65rem 0.85rem;
   border-radius: 6px;
   font-size: 0.82rem;
@@ -71,23 +71,23 @@
 .label {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #27272a;
+  color: var(--text-primary);
 }
 
 .input {
   width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--border-subtle);
   font-size: 0.88rem;
-  color: #09090b;
+  color: var(--text-primary);
   outline: none;
-  background-color: #ffffff;
+  background-color: var(--bg-surface);
   transition: border-color 0.15s ease;
 }
 
 .input:focus {
-  border-color: #7c3aed;
+  border-color: var(--accent);
 }
 
 .submitBtn {
@@ -95,16 +95,16 @@
   padding: 0.65rem;
   border-radius: 6px;
   border: none;
-  background-color: #09090b;
-  color: #ffffff;
+  background-color: var(--text-primary);
+  color: var(--bg-app);
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: #27272a;
+  opacity: 0.8;
 }
 
 .submitBtn:disabled {
@@ -115,12 +115,12 @@
 .footerText {
   text-align: center;
   font-size: 0.82rem;
-  color: #71717a;
+  color: var(--text-secondary);
   margin: 1.5rem 0 0;
 }
 
 .footerLink {
-  color: #09090b;
+  color: var(--text-primary);
   font-weight: 600;
   text-decoration: none;
   margin-left: 0.25rem;

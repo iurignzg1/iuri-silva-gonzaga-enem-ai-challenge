@@ -5,26 +5,26 @@
 .headerSection {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e4e4e7;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .title {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0 0 0.25rem;
   letter-spacing: -0.02em;
 }
 
 .subtitle {
   font-size: 0.9rem;
-  color: #71717a;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .formCard {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
   padding: 2rem;
   display: flex;
@@ -41,13 +41,13 @@
 .sectionTitle {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #09090b;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .sectionHint {
   font-size: 0.8rem;
-  color: #71717a;
+  color: var(--text-secondary);
   margin: -0.5rem 0 0.5rem;
 }
 
@@ -66,18 +66,18 @@
 .label {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #27272a;
+  color: var(--text-primary);
 }
 
 .input {
   width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: 6px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--border-subtle);
   font-size: 0.88rem;
-  color: #09090b;
+  color: var(--text-primary);
   outline: none;
-  background-color: #ffffff;
+  background-color: var(--bg-surface);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -88,25 +88,25 @@ select.input {
 
 optgroup {
   font-weight: 700;
-  color: #5b21b6;
-  background-color: #f5f3ff;
+  color: var(--accent);
+  background-color: var(--bg-elevated);
 }
 
 optgroup option {
   font-weight: 400;
-  color: #09090b;
-  background-color: #ffffff;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
   padding: 0.4rem;
 }
 
 .input:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-border);
 }
 
 .inputDisabled {
-  background-color: #f4f4f5;
-  color: #71717a;
+  background-color: var(--bg-elevated);
+  color: var(--text-muted);
   cursor: not-allowed;
 }
 
@@ -117,8 +117,8 @@ optgroup option {
 }
 
 .weightCard {
-  background-color: #fafafa;
-  border: 1px solid #e4e4e7;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 0.75rem 0.5rem;
   display: flex;
@@ -130,7 +130,7 @@ optgroup option {
 .weightLabel {
   font-size: 0.75rem;
   font-weight: 500;
-  color: #52525b;
+  color: var(--text-secondary);
   text-align: center;
 }
 
@@ -140,14 +140,15 @@ optgroup option {
   text-align: center;
   font-weight: 600;
   border-radius: 4px;
-  border: 1px solid #d4d4d8;
-  color: #7c3aed;
+  border: 1px solid var(--border-hover);
+  color: var(--accent);
   font-size: 0.9rem;
   outline: none;
+  background-color: var(--bg-surface);
 }
 
 .weightInput:focus {
-  border-color: #7c3aed;
+  border-color: var(--accent);
 }
 
 .submitBtn {
@@ -155,22 +156,22 @@ optgroup option {
   padding: 0.65rem 1.4rem;
   border-radius: 6px;
   border: none;
-  background-color: #09090b;
-  color: #ffffff;
+  background-color: var(--text-primary);
+  color: var(--bg-app);
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: opacity 0.15s ease;
 }
 
 .submitBtn:hover:not(:disabled) {
-  background-color: #27272a;
+  opacity: 0.8;
 }
 
 .successBanner {
-  background-color: #f0fdf4;
-  border: 1px solid #dcfce7;
-  color: #15803d;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -178,9 +179,9 @@ optgroup option {
 }
 
 .errorBanner {
-  background-color: #fef2f2;
-  border: 1px solid #fee2e2;
-  color: #b91c1c;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: #ef4444;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   font-size: 0.85rem;
