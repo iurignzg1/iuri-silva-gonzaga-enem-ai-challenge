@@ -3,21 +3,43 @@
 :root {
   --bg-app: #fafafa;
   --bg-surface: #ffffff;
+  --bg-elevated: #f4f4f5;
   --border-subtle: #e4e4e7;
   --border-hover: #d4d4d8;
-  
+
   --text-primary: #09090b;
   --text-secondary: #52525b;
   --text-muted: #a1a1aa;
 
-  --accent-purple: #7c3aed;
-  --accent-purple-hover: #6d28d9;
-  --accent-purple-subtle: #f5f3ff;
-  --accent-purple-border: #ddd6fe;
+  /* Roxo exato da navbar */
+  --accent: #5b21b6;
+  --accent-hover: #4c1d95;
+  --accent-subtle: #f5f3ff;
+  --accent-border: #ddd6fe;
+  --accent-text: #ffffff;
 
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
+}
+
+[data-theme="dark"] {
+  --bg-app: #111111;
+  --bg-surface: #1a1a1a;
+  --bg-elevated: #222222;
+  --border-subtle: #2e2e2e;
+  --border-hover: #3d3d3d;
+
+  --text-primary: #ededed;
+  --text-secondary: #a0a0a0;
+  --text-muted: #606060;
+
+  /* Sem roxo vibrante no dark: cinza-frio discreto */
+  --accent: #a0a0b4;
+  --accent-hover: #8c8ca0;
+  --accent-subtle: #1e1e26;
+  --accent-border: #2e2e3e;
+  --accent-text: #ffffff;
 }
 
 * {
