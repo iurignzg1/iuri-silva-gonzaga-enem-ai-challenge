@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 const PublicLayout = () => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "#ffffff" }}>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", backgroundColor: "var(--bg-app)" }}>
       <Navbar />
       <main style={{ flex: 1 }}>
         <Outlet />
