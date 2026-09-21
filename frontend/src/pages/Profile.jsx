@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { API_URL, getAuthHeaders } from "../services/api";
-import catalogoCursos from "../config/cursos.json";
-import catalogoInstituicoes from "../config/instituicoes.json";
+import MetasAprovacao from "../components/profile/MetasAprovacao";
+import MatrizPesos from "../components/profile/MatrizPesos";
 import styles from "./Profile.module.css";
 
 const Profile = () => {
@@ -79,6 +79,10 @@ const Profile = () => {
     }
   };
 
+  const handleWeightChange = (key, val) => {
+    setPesos(prev => ({ ...prev, [key]: val }));
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.headerSection}>
@@ -118,86 +122,19 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Metas */}
-        <div className={styles.sectionBlock}>
-          <h2 className={styles.sectionTitle}>Metas de Aprovação</h2>
-          <div className={styles.fieldGrid}>
-            <div className={styles.field}>
-              <label className={styles.label}>Curso Alvo</label>
-              <select
-                value={cursoAlvo}
-                onChange={(e) => setCursoAlvo(e.target.value)}
-                className={styles.input}
-              >
-                {catalogoCursos.map((grupo) => (
-                  <optgroup key={grupo.area} label={grupo.area}>
-                    {grupo.cursos.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-                {cursoAlvo &&
-                  !catalogoCursos.some((g) => g.cursos.includes(cursoAlvo)) && (
-                    <option value={cursoAlvo}>{cursoAlvo} (Personalizado)</option>
-                  )}
-              </select>
-            </div>
-            <div className={styles.field}>
-              <label className={styles.label}>Instituição Alvo</label>
-              <select
-                value={faculdadeAlvo}
-                onChange={(e) => setFaculdadeAlvo(e.target.value)}
-                className={styles.input}
-              >
-                {catalogoInstituicoes.map((regiao) => (
-                  <optgroup key={regiao.regiao} label={regiao.regiao}>
-                    {regiao.instituicoes.map((inst) => (
-                      <option key={inst} value={inst}>
-                        {inst}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-                {faculdadeAlvo &&
-                  !catalogoInstituicoes.some((r) => r.instituicoes.includes(faculdadeAlvo)) && (
-                    <option value={faculdadeAlvo}>{faculdadeAlvo} (Personalizado)</option>
-                  )}
-              </select>
-            </div>
-          </div>
-        </div>
+        {/* Metas de Aprovação */}
+        <MetasAprovacao
+          cursoAlvo={cursoAlvo}
+          setCursoAlvo={setCursoAlvo}
+          faculdadeAlvo={faculdadeAlvo}
+          setFaculdadeAlvo={setFaculdadeAlvo}
+        />
 
-        {/* Pesos */}
-        <div className={styles.sectionBlock}>
-          <h2 className={styles.sectionTitle}>Matriz de Pesos (1 a 5)</h2>
-          <p className={styles.sectionHint}>
-            Usados para calcular a média ponderada TRI das suas avaliações simuladas.
-          </p>
-
-          <div className={styles.weightsGrid}>
-            {[
-              { key: "matematica", label: "Matemática" },
-              { key: "natureza", label: "Natureza" },
-              { key: "humanas", label: "Humanas" },
-              { key: "linguagens", label: "Linguagens" },
-              { key: "redacao", label: "Redação" }
-            ].map(({ key, label }) => (
-              <div key={key} className={styles.weightCard}>
-                <span className={styles.weightLabel}>{label}</span>
-                <input
-                  type="number"
-                  min="1"
-                  max="5"
-                  value={pesos[key] || 1}
-                  onChange={(e) => setPesos({ ...pesos, [key]: Number(e.target.value) })}
-                  className={styles.weightInput}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Matriz de Pesos */}
+        <MatrizPesos 
+          pesos={pesos} 
+          onChangePeso={handleWeightChange} 
+        />
 
         <button type="submit" disabled={loading} className={styles.submitBtn}>
           {loading ? "Salvando..." : "Salvar Alterações"}

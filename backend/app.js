@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 //importação de rotas
 const router = require('./routes/router');
 const simuladoRoutes = require('./routes/SimuladoRoutes');

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { API_URL } from "../services/api";
 
 const AuthContext = createContext();
 
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }) => {
           }
           // Sincroniza dados atualizados direto do banco (cursoAlvo, faculdadeAlvo, pesos)
           try {
-            const res = await fetch("http://localhost:5000/api/users/profile", {
+            const res = await fetch(`${API_URL}/users/profile`, {
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${storedToken}`
