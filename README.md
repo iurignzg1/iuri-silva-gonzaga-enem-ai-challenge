@@ -184,13 +184,25 @@ O frontend estará em `http://localhost:5173`.
 
 ## Prints da aplicação
 
-> _Adicione aqui screenshots ou GIFs das seguintes telas:_
-> - Página inicial
-> - Tela de login / cadastro
-> - Configuração do simulado (seleção de dia, ano e língua)
-> - Questão sendo respondida
-> - Tela de resultado com nota TRI e feedback da IA
-> - Dashboard com histórico e análise holística
+Pagina inicial
+<img width="1920" height="1032" alt="HyperTask — Simulador ENEM com Mentoria por IA - Brave 21_09_2026 17_37_52" src="https://github.com/user-attachments/assets/6deb17fb-8f2c-4e79-b70a-03b4afc18568" />
+
+Pagina de Registro e Login
+<img width="1920" height="1032" alt="HyperTask — Simulador ENEM com Mentoria por IA - Brave 21_09_2026 17_38_01" src="https://github.com/user-attachments/assets/a60fdd56-e7b9-44b4-81c3-ec548118eee5" />
+<img width="1920" height="1032" alt="HyperTask — Simulador ENEM com Mentoria por IA - Brave 21_09_2026 17_38_10" src="https://github.com/user-attachments/assets/5e4a4ef4-a6fd-48d8-9dae-65bc51ae785f" />
+
+Pagina de Simulado e conclusão com relatório da IA
+<img width="1918" height="1027" alt="Animação" src="https://github.com/user-attachments/assets/f7ffcb69-f432-4630-9f61-b1dda38fa150" />
+
+Pagina de histórico e relatório holístico da IA com base no histórico
+<img width="1916" height="989" alt="Tema escuro e diagnostico do historico" src="https://github.com/user-attachments/assets/dcf529d2-36a4-4164-8931-e7a2e2eb7e51" />
+
+Dashboard do aluno com configurações de curso, instituição e pesos
+<img width="1920" height="1032" alt="HyperTask — Simulador ENEM com Mentoria por IA - Brave 21_09_2026 17_53_36" src="https://github.com/user-attachments/assets/14f6abe8-858b-410d-bf65-4ad108093e35" />
+
+
+
+
 
 ---
 
