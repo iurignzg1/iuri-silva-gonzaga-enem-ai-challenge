@@ -2,7 +2,7 @@
 
 > **Desafio de Estágio — Iuri Silva Gonzaga**
 
-🔗 **Deploy:** _[adicionar link após deploy]_
+🔗 **Deploy:** https://iuri-silva-gonzaga-enem-ai-challeng.vercel.app/
 
 ---
 
